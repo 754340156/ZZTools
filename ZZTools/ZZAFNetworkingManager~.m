@@ -12,9 +12,8 @@
 + (void)netWorkWithURLString:(NSString *)urlString parameters:(NSDictionary*)parameters SuccessBlock:(void(^)(NSDictionary*dic))successBlock failBlock:(void(^)(NSError*error))failBlock
 {
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-        NSString *encodingString = [@"这里写网络接口公共的api" stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
-     NSString *apiString = [NSString stringWithFormat:@"%@%@",encodingString,urlString];
-    [manager POST:apiString parameters:parameters progress:^(NSProgress * _Nonnull uploadProgress) {
+        NSString *encodingString = [urlString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+    [manager POST:encodingString parameters:parameters progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];

@@ -202,7 +202,7 @@ UIView *hudAddedView;
     NSLog(@"点击屏幕");
     [hudManager hideBackView];
     [tap removeTarget:nil action:nil];
-    [GHZMBManager hideAlert];
+    [ZZMBProgressManager hideAlert];
 }
 #pragma mark - 解决手势冲突
 -(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch

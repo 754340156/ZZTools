@@ -4,7 +4,6 @@ use_frameworks!
 target :'ZZTools' do
 pod 'SDWebImage'
 pod 'MBProgressHUD'
-pod 'MJRefresh'
 pod 'AFNetworking'
 pod 'FMDB'
 end

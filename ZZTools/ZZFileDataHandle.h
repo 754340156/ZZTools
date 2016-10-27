@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 @interface ZZFileDataHandle : NSObject
-+ (instancetype)shareInstance;
++ (instancetype)sharedInstance;
 /**  计算缓存 */
 - (CGFloat)getDiskSize;
 /**  清除缓存 */

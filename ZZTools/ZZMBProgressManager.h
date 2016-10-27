@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 static NSString *const kLoadingMessage = @"加载中...";
 static CGFloat const   kShowTime  = 1.0f;
 
