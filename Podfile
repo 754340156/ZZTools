@@ -6,4 +6,5 @@ pod 'SDWebImage'
 pod 'MBProgressHUD'
 pod 'AFNetworking'
 pod 'FMDB'
+pod 'Masonry'
 end
