@@ -11,7 +11,6 @@
 
 #import "ZZFileDataHandle.h"//文件句柄,单例类做缓存计算和清除
 #import "ZZMBProgressManager.h"
-#import "ZZAFNetworkingManager.h"
 #import "ZZCustomAlertView.h"
 #import "CodeButton.h"// 获取验证码的button
 #import "ButtonsView.h"//  横条排布多个按钮可带下线
@@ -21,4 +20,7 @@
 #import "DatePickerView.h"//时间选择器
 #import "AddressPickerView.h"//省市区地址选择
 #import "CustomSwitch.h" //自定义switch
+
+
+#import "ZZHeader.h"
 #endif /* ZZToolsHeader_h */
