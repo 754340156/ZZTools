@@ -20,7 +20,7 @@
 #import "DatePickerView.h"//时间选择器
 #import "AddressPickerView.h"//省市区地址选择
 #import "CustomSwitch.h" //自定义switch
-
+#import "Singleton.h"//单利宏
 
 #import "ZZHeader.h"
 #endif /* ZZToolsHeader_h */

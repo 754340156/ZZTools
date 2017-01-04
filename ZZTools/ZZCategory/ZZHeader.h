@@ -9,10 +9,10 @@
 #ifndef Header_h
 #define Header_h
 
-#import "Color.h"
-#import "Font.h"
-#import "Layout.h"
-#import "Tools.h"
+#import "ZZColor.h"
+#import "ZZFont.h"
+#import "ZZLayout.h"
+#import "ZZTools.h"
 
 #import "CLLocation+MPLocation.h"
 #import "NSAttributedString+Extension.h"
