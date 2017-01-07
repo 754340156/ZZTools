@@ -7,4 +7,5 @@ pod 'MBProgressHUD'
 pod 'AFNetworking'
 pod 'FMDB'
 pod 'MJExtension'
+pod 'AliyunOSSiOS'
 end

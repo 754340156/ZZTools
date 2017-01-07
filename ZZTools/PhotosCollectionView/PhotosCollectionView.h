@@ -14,7 +14,7 @@
 
 @interface PhotosCollectionView : UIView
 /** 初始化方法（默认宽度是屏幕宽） */
-- (instancetype)initWithFrame:(CGRect)frame withItemWidth:(CGFloat)itemWidth ItemHeight:(CGFloat)itemHeight kMargin:(CGFloat)kMargin ViewController:(UIViewController *)viewController ItemImage:(NSString *)itemImage;
+- (instancetype)initWithFrame:(CGRect)frame withItemWidth:(CGFloat)itemWidth ItemHeight:(CGFloat)itemHeight Margin:(CGFloat)Margin ViewController:(UIViewController *)viewController ItemImage:(NSString *)itemImage;
 
 /**  选完图片的block回调有可能改变了高度 */
 @property(nonatomic,copy) void (^refreshEndBlock)(CGFloat height);

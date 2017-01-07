@@ -6,8 +6,16 @@
 //  Copyright © 2016年 zhaozhe. All rights reserved.
 //
 
-#ifndef Tools_h
-#define Tools_h
+#ifndef ZZTools_h
+#define ZZTools_h
+
+//让NSLog在debug模式下有效, release模式下失效
+#ifdef DEBUG
+#define NSLog(...) NSLog(__VA_ARGS__)
+#else
+#define NSLog(...)
+#endif
+
 //本地存
 #define WriteForLocation(OBJECT,KEY) \
 [[NSUserDefaults standardUserDefaults] setObject:OBJECT forKey:KEY];\
@@ -48,4 +56,9 @@
 || [_object isKindOfClass:[NSNull class]] \
 || ([_object respondsToSelector:@selector(length)] && [(NSData *)_object length] == 0) \
 || ([_object respondsToSelector:@selector(count)] && [(NSArray *)_object count] == 0))
-#endif /* Tools_h */
+
+//判断手机尺寸
+#define IS_IPHONE_5 ( fabs( ( double )[ [ UIScreen mainScreen ] bounds ].size.height - ( double )568 ) < DBL_EPSILON )
+#define IS_IPHONE_6 ( fabs( ( double )[ [ UIScreen mainScreen ] bounds ].size.height - ( double )667 ) < DBL_EPSILON )
+#define IS_IPHONE_6_P ( fabs( ( double )[ [ UIScreen mainScreen ] bounds ].size.height - ( double )736 ) < DBL_EPSILON )
+#endif /* ZZTools_h */

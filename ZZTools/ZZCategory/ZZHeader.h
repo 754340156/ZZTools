@@ -13,6 +13,7 @@
 #import "ZZFont.h"
 #import "ZZLayout.h"
 #import "ZZTools.h"
+#import "ZZImage.h"
 
 #import "CLLocation+MPLocation.h"
 #import "NSAttributedString+Extension.h"

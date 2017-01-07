@@ -221,4 +221,8 @@
 + (NSString *)ymdHmsFormat;
 //根据出生日期转换成计算星座
 - (NSString *)formatToConstellation;
+/**
+ * 获取当前日期 yyyy-MM-dd HH:mm:ss
+ */
++ (NSString *)currentTime;
 @end

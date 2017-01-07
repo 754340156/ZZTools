@@ -6,8 +6,24 @@
 //  Copyright © 2016年 zhaozhe. All rights reserved.
 //
 
-#ifndef Color_h
-#define Color_h
+#ifndef ZZColor_h
+#define ZZColor_h
+
+/********************定义通用颜色********************/
+#define kBlackColor         [UIColor blackColor]
+#define kDarkGrayColor      [UIColor darkGrayColor]
+#define kLightGrayColor     [UIColor lightGrayColor]
+#define kWhiteColor         [UIColor whiteColor]
+#define kGrayColor          [UIColor grayColor]
+#define kRedColor           [UIColor redColor]
+#define kGreenColor         [UIColor greenColor]
+#define kBlueColor          [UIColor blueColor]
+#define kCyanColor          [UIColor cyanColor]
+#define kYellowColor        [UIColor yellowColor]
+#define kMagentaColor       [UIColor magentaColor]
+#define kOrangeColor        [UIColor orangeColor]
+#define kPurpleColor        [UIColor purpleColor]
+#define kClearColor         [UIColor clearColor]
 
 // 取色值相关的方法
 #define RGB(r,g,b)          [UIColor colorWithRed:(r)/255.f \
@@ -34,4 +50,19 @@ alpha:((float)(rgbValue & 0x000000FF))/255.0]
 green:((float)(((v) & 0x00FF00) >> 8))/255.0 \
 blue:((float)(v & 0x0000FF))/255.0 \
 alpha:a]
-#endif /* Color_h */
+
+/********************合成颜色简写********************/
+//RGB(十六进制) - 透明为1.0
+#define ColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
+
+//RGB(十六进制) - 可设置透明
+#define ColorFromRGBA(rgbValue, a) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:a]
+
+//灰度颜色 - 透明为1.0
+#define ColorWhite(value) [UIColor colorWithWhite:value alpha:1.0]
+
+//灰度颜色 - 可设置透明
+#define ColorWhiteAlpha(value, a) [UIColor colorWithWhite:value alpha:a]
+
+
+#endif /* ZZColor_h */

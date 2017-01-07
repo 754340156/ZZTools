@@ -748,5 +748,11 @@
     }
     return retStr;
 }
-
++ (NSString *)currentTime
+{
+    NSDate *currentDate = [NSDate date];//获取当前时间，日期
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"YYYY_MM_dd_hh:mm:ss"];
+    return  [dateFormatter stringFromDate:currentDate];
+}
 @end

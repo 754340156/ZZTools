@@ -14,7 +14,7 @@ static NSString * itemImageStr = @"";
 
 static CGFloat itemH = 0;
 static CGFloat itemW = 0;
-static CGFloat kmargin = 0;
+static CGFloat PCVmargin = 0;
 
 @interface PhotosCollectionView ()<UICollectionViewDelegate,UICollectionViewDataSource,TZImagePickerControllerDelegate>
 /**  添加照片 */
@@ -30,25 +30,25 @@ static CGFloat kmargin = 0;
 @implementation PhotosCollectionView
 
 /** 初始化方法 */
-- (instancetype)initWithFrame:(CGRect)frame withItemWidth:(CGFloat)itemWidth ItemHeight:(CGFloat)itemHeight kMargin:(CGFloat)kMargin ViewController:(UIViewController *)viewController ItemImage:(NSString *)itemImage
+- (instancetype)initWithFrame:(CGRect)frame withItemWidth:(CGFloat)itemWidth ItemHeight:(CGFloat)itemHeight Margin:(CGFloat)Margin ViewController:(UIViewController *)viewController ItemImage:(NSString *)itemImage
 {
     self = [super initWithFrame:frame];
     if (self) {
-        [self setupWithItemWidth:itemWidth ItemHeight:itemHeight kMargin:kMargin];
+        [self setupWithItemWidth:itemWidth ItemHeight:itemHeight Margin:Margin];
         self.viewController = viewController;
         itemImageStr = itemImage;
         itemH = itemHeight;
         itemW = itemWidth;
-        kmargin = kMargin;
+        PCVmargin = Margin;
     }
     return self;
 }
 #pragma mark - setup
-- (void)setupWithItemWidth:(CGFloat)itemWidth ItemHeight:(CGFloat)itemHeight kMargin:(CGFloat)kMargin
+- (void)setupWithItemWidth:(CGFloat)itemWidth ItemHeight:(CGFloat)itemHeight Margin:(CGFloat)Margin
 {
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
-    flowLayout.minimumLineSpacing = kMargin;
-    flowLayout.minimumInteritemSpacing = kMargin;
+    flowLayout.minimumLineSpacing = Margin;
+    flowLayout.minimumInteritemSpacing = Margin;
     flowLayout.itemSize = CGSizeMake(itemWidth,itemWidth);
     self.collectionView = [[UICollectionView alloc] initWithFrame:self.bounds collectionViewLayout:flowLayout];
     self.collectionView.backgroundColor = kWhiteColor;
@@ -59,8 +59,8 @@ static CGFloat kmargin = 0;
 //预览图片
 - (void)previewPhotosWithIndex:(NSInteger)index
 {
-    __weak __typeof(self)weakSelf = self;
-    __strong typeof(weakSelf) strongSelf = weakSelf;
+    WS(weakSelf);
+    SS(strongSelf)
     //预览
     TZImagePickerController *imagePickerVC = [[TZImagePickerController alloc] initWithSelectedAssets:self.selectedAssets selectedPhotos:self.selectedPhotos index:index];
     imagePickerVC.maxImagesCount = maxCount;
@@ -136,7 +136,7 @@ static CGFloat kmargin = 0;
     self.selectedAssets = [NSMutableArray arrayWithArray:assets];
     NSInteger count = self.selectedPhotos.count / singleLineCount;
     //判断修改高度
-    self.collectionView.height = (count + 1) * itemH + count * kmargin;
+    self.collectionView.height = (count + 1) * itemH + count * PCVmargin;
     self.height = self.collectionView.height;
     [self layoutIfNeeded];
     if (self.refreshEndBlock) {

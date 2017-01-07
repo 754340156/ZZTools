@@ -6,8 +6,8 @@
 //  Copyright © 2016年 zhaozhe. All rights reserved.
 //
 
-#ifndef Layout_h
-#define Layout_h
+#ifndef ZZLayout_h
+#define ZZLayout_h
 //系统固定宽高
 #define kScreenW   [UIScreen mainScreen].bounds.size.width
 #define kScreenH   [UIScreen mainScreen].bounds.size.height
@@ -26,4 +26,4 @@
 
 //尺寸适配（轻比例）（特殊情况下使用）
 #define LightAdapted(x)  floorf((x) * ((kScreenWidthRatio > 1) ? (1 + (kScreenWidthRatio - 1) / 2.0) : (1 - (1 - kScreenWidthRatio) / 2.0)))
-#endif /* Layout_h */
+#endif /* ZZLayout_h */

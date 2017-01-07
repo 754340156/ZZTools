@@ -62,19 +62,20 @@ static NSTimeInterval defaultInterval = 2;
 #pragma mark - 处理暴力点击
 + (void)load
 {
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        SEL selA = @selector(sendAction:to:forEvent:);
-        SEL selB = @selector(mySendAction:to:forEvent:);
-        Method methodA =   class_getInstanceMethod(self,selA);
-        Method methodB = class_getInstanceMethod(self, selB);
-        BOOL isAdd = class_addMethod(self, selA, method_getImplementation(methodB), method_getTypeEncoding(methodB));
-        if (isAdd) {
-            class_replaceMethod(self, selB, method_getImplementation(methodA), method_getTypeEncoding(methodA));
-        }else{
-            method_exchangeImplementations(methodA, methodB);
-        }
-    });
+    //需要的时候再开
+//    static dispatch_once_t onceToken;
+//    dispatch_once(&onceToken, ^{
+//        SEL selA = @selector(sendAction:to:forEvent:);
+//        SEL selB = @selector(mySendAction:to:forEvent:);
+//        Method methodA =   class_getInstanceMethod(self,selA);
+//        Method methodB = class_getInstanceMethod(self, selB);
+//        BOOL isAdd = class_addMethod(self, selA, method_getImplementation(methodB), method_getTypeEncoding(methodB));
+//        if (isAdd) {
+//            class_replaceMethod(self, selB, method_getImplementation(methodA), method_getTypeEncoding(methodA));
+//        }else{
+//            method_exchangeImplementations(methodA, methodB);
+//        }
+//    });
 }
 - (NSTimeInterval)timeInterval
 {
