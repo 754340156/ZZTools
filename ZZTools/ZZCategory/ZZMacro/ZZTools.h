@@ -16,6 +16,8 @@
 #define NSLog(...)
 #endif
 
+//判断代理简写
+#define JudgeDelegate(delegate,Sel) (delegate && [delegate respondsToSelector:@selector(Sel)])
 //本地存
 #define WriteForLocation(OBJECT,KEY) \
 [[NSUserDefaults standardUserDefaults] setObject:OBJECT forKey:KEY];\

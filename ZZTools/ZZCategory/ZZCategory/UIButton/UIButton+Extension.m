@@ -129,13 +129,10 @@ static NSTimeInterval defaultInterval = 2;
                 self.userInteractionEnabled = YES;
             });
         }else{
-            //            int minutes = timeout / 60;
-            int seconds = timeOut % 60;
-            NSString *strTime = [NSString stringWithFormat:@"%.2d", seconds];
+            NSString *strTime = [NSString stringWithFormat:@"%.2ld", (long)timeOut];
             dispatch_async(dispatch_get_main_queue(), ^{
                 //设置界面的按钮显示 根据自己需求设置
-                NSLog(@"____%@",strTime);
-                [self setTitle:[NSString stringWithFormat:@"%@%@",strTime,waitTittle] forState:UIControlStateNormal];
+                [self setTitle:[NSString stringWithFormat:@"(%@s)%@",strTime,waitTittle] forState:UIControlStateNormal];
                 self.userInteractionEnabled = NO;
                 
             });
@@ -199,5 +196,136 @@ static char overviewKey;
     if (block) {
         block();
     }
+}
+#pragma mark - init
++ (instancetype)zz_buttonWithFrame:(CGRect)frame Title:(NSString *)title Font:(UIFont *)font Target:(id)target Action:(SEL)action
+{
+    return [self buttonWithFrame:frame Title:title Font:font TitleColor:nil SelectedTitle:nil SelectedTitleColor:nil BackGroundColor:nil Image:nil SelectedImage:nil Target:target Action:action];
+}
++ (instancetype)zz_buttonWithFrame:(CGRect)frame Title:(NSString *)title Font:(UIFont *)font BackGroundColor:(UIColor *)backGroundColor Target:(id)target Action:(SEL)action
+{
+    return [self buttonWithFrame:frame Title:title Font:font TitleColor:nil SelectedTitle:nil SelectedTitleColor:nil BackGroundColor:backGroundColor Image:nil SelectedImage:nil Target:target Action:action];
+}
++ (instancetype)zz_buttonWithFrame:(CGRect)frame Title:(NSString *)title Font:(UIFont *)font BackGroundColor:(UIColor *)backGroundColor TitleColor:(UIColor *)titleColor Target:(id)target Action:(SEL)action
+{
+    return [self buttonWithFrame:frame Title:title Font:font TitleColor:titleColor SelectedTitle:nil SelectedTitleColor:nil BackGroundColor:backGroundColor Image:nil SelectedImage:nil Target:target Action:action];
+}
++ (instancetype)zz_buttonWithFrame:(CGRect)frame Title:(NSString *)title Font:(UIFont *)font TitleColor:(UIColor *)titleColor Target:(id)target Action:(SEL)action
+{
+    return [self buttonWithFrame:frame Title:title Font:font TitleColor:titleColor SelectedTitle:nil SelectedTitleColor:nil BackGroundColor:nil Image:nil SelectedImage:nil Target:target Action:action];
+}
++ (instancetype)zz_buttonWithFrame:(CGRect)frame Title:(NSString *)title Font:(UIFont *)font SelectedTitle:(NSString *)selectedTitle Target:(id)target Action:(SEL)action
+{
+    return [self buttonWithFrame:frame Title:title Font:font TitleColor:nil SelectedTitle:selectedTitle SelectedTitleColor:nil BackGroundColor:nil Image:nil SelectedImage:nil Target:target Action:action];
+}
++ (instancetype)zz_buttonWithFrame:(CGRect)frame Title:(NSString *)title Font:(UIFont *)font SelectedTitle:(NSString *)selectedTitle BackGroundColor:(UIColor *)backGroundColor Target:(id)target Action:(SEL)action
+{
+    return [self buttonWithFrame:frame Title:title Font:font TitleColor:nil SelectedTitle:selectedTitle SelectedTitleColor:nil BackGroundColor:backGroundColor Image:nil SelectedImage:nil Target:target Action:action];
+}
++ (instancetype)zz_buttonWithFrame:(CGRect)frame Title:(NSString *)title Font:(UIFont *)font SelectedTitle:(NSString *)selectedTitle BackGroundColor:(UIColor *)backGroundColor TitleColor:(UIColor *)titleColor SelectedTitleColor:(UIColor *)selectedTitleColor Target:(id)target Action:(SEL)action
+{
+    return [self buttonWithFrame:frame Title:title Font:font TitleColor:titleColor SelectedTitle:selectedTitle SelectedTitleColor:selectedTitleColor BackGroundColor:backGroundColor Image:nil SelectedImage:nil Target:target Action:action];
+}
++ (instancetype)zz_buttonWithFrame:(CGRect)frame Title:(NSString *)title Font:(UIFont *)font SelectedTitle:(NSString *)selectedTitle TitleColor:(UIColor *)titleColor SelectedTitleColor:(UIColor *)selectedTitleColor Target:(id)target Action:(SEL)action
+{
+    return [self buttonWithFrame:frame Title:title Font:font TitleColor:titleColor SelectedTitle:selectedTitle SelectedTitleColor:selectedTitleColor BackGroundColor:nil Image:nil SelectedImage:nil Target:target Action:action];
+}
++ (instancetype)zz_buttonWithFrame:(CGRect)frame Title:(NSString *)title Font:(UIFont *)font TitleColor:(UIColor *)titleColor BackGroundColor:(UIColor *)backGroundColor DisableBackGroundColor:(UIColor *)disableBackGroundColor Target:(id)target Action:(SEL)action
+{
+    return  [self buttonWithFrame:frame Title:title Font:font TitleColor:titleColor BackGroundColor:backGroundColor DisableBackGroundColor:disableBackGroundColor Target:target Action:action];
+}
+
++ (instancetype)zz_buttonWithFrame:(CGRect)frame Image:(UIImage *)image Target:(id)target Action:(SEL)action
+{
+    return [self buttonWithFrame:frame Title:nil Font:nil TitleColor:nil SelectedTitle:nil SelectedTitleColor:nil BackGroundColor:nil Image:image SelectedImage:nil Target:target Action:action];
+}
++ (instancetype)zz_buttonWithFrame:(CGRect)frame  Image:(UIImage *)image SelectedImage:(UIImage *)selectedImage Target:(id)target Action:(SEL)action
+{
+    return [self buttonWithFrame:frame Title:nil Font:nil TitleColor:nil SelectedTitle:nil SelectedTitleColor:nil BackGroundColor:nil Image:image SelectedImage:selectedImage Target:target Action:action];
+}
+
+
++ (instancetype)zz_buttonWithFrame:(CGRect)frame Title:(NSString *)title Font:(UIFont *)font Image:(UIImage *)image Target:(id)target Action:(SEL)action
+{
+    return [self buttonWithFrame:frame Title:title Font:font TitleColor:nil SelectedTitle:nil SelectedTitleColor:nil BackGroundColor:nil Image:image SelectedImage:nil Target:target Action:action];
+}
++ (instancetype)zz_buttonWithFrame:(CGRect)frame Title:(NSString *)title Font:(UIFont *)font BackGroundColor:(UIColor *)backGroundColor Image:(UIImage *)image Target:(id)target Action:(SEL)action
+{
+    return [self buttonWithFrame:frame Title:title Font:font TitleColor:nil SelectedTitle:nil SelectedTitleColor:nil BackGroundColor:backGroundColor Image:image SelectedImage:nil Target:target Action:action];
+}
++ (instancetype)zz_buttonWithFrame:(CGRect)frame Title:(NSString *)title Font:(UIFont *)font BackGroundColor:(UIColor *)backGroundColor TitleColor:(UIColor *)titleColor Image:(UIImage *)image Target:(id)target Action:(SEL)action
+{
+    return [self buttonWithFrame:frame Title:title Font:font TitleColor:titleColor SelectedTitle:nil SelectedTitleColor:nil BackGroundColor:backGroundColor Image:image SelectedImage:nil Target:target Action:action];
+}
++ (instancetype)zz_buttonWithFrame:(CGRect)frame Title:(NSString *)title Font:(UIFont *)font TitleColor:(UIColor *)titleColor Image:(UIImage *)image Target:(id)target Action:(SEL)action
+{
+    return [self buttonWithFrame:frame Title:title Font:font TitleColor:titleColor SelectedTitle:nil SelectedTitleColor:nil BackGroundColor:nil Image:image SelectedImage:nil Target:target Action:action];
+}
++ (instancetype)zz_buttonWithFrame:(CGRect)frame Title:(NSString *)title Font:(UIFont *)font SelectedTitle:(NSString *)selectedTitle Image:(UIImage *)image Target:(id)target Action:(SEL)action
+{
+    return [self buttonWithFrame:frame Title:title Font:font TitleColor:nil SelectedTitle:selectedTitle SelectedTitleColor:nil BackGroundColor:nil Image:image SelectedImage:nil Target:target Action:action];
+}
++ (instancetype)zz_buttonWithFrame:(CGRect)frame Title:(NSString *)title Font:(UIFont *)font SelectedTitle:(NSString *)selectedTitle BackGroundColor:(UIColor *)backGroundColor Image:(UIImage *)image Target:(id)target Action:(SEL)action
+{
+    return [self buttonWithFrame:frame Title:title Font:font TitleColor:nil SelectedTitle:selectedTitle SelectedTitleColor:nil BackGroundColor:backGroundColor Image:image SelectedImage:nil Target:target Action:action];
+}
++ (instancetype)zz_buttonWithFrame:(CGRect)frame Title:(NSString *)title Font:(UIFont *)font SelectedTitle:(NSString *)selectedTitle BackGroundColor:(UIColor *)backGroundColor TitleColor:(UIColor *)titleColor SelectedTitleColor:(UIColor *)selectedTitleColor Image:(UIImage *)image Target:(id)target Action:(SEL)action
+{
+    return [self buttonWithFrame:frame Title:title Font:font TitleColor:titleColor SelectedTitle:selectedTitle SelectedTitleColor:selectedTitleColor BackGroundColor:backGroundColor Image:image SelectedImage:nil Target:target Action:action];
+}
++ (instancetype)zz_buttonWithFrame:(CGRect)frame Title:(NSString *)title Font:(UIFont *)font SelectedTitle:(NSString *)selectedTitle TitleColor:(UIColor *)titleColor SelectedTitleColor:(UIColor *)selectedTitleColor Image:(UIImage *)image Target:(id)target Action:(SEL)action
+{
+    return [self buttonWithFrame:frame Title:title Font:font TitleColor:titleColor SelectedTitle:selectedTitle SelectedTitleColor:selectedTitleColor BackGroundColor:nil Image:image SelectedImage:nil Target:target Action:action];
+}
+
++ (instancetype)buttonWithFrame:(CGRect)frame Title:(NSString *)title Font:(UIFont *)font TitleColor:(UIColor *)titleColor SelectedTitle:(NSString *)selectedTitle SelectedTitleColor:(UIColor *)selectedTitleColor BackGroundColor:(UIColor *)backGroundColor Image:(UIImage *)image SelectedImage:(UIImage *)selectedImage Target:(nullable id)target Action:(SEL)action
+{
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    button.frame = frame;
+    [button setTitle:title forState:UIControlStateNormal];
+    button.titleLabel.font = font;
+
+    if (target && action) {
+        [button addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
+    }
+    if (titleColor) {
+        [button setTitleColor:titleColor forState:UIControlStateNormal];
+    }
+    if (selectedTitle) {
+        [button setTitle:selectedTitle forState:UIControlStateSelected];
+    }
+    if (selectedTitleColor) {
+        [button setTitleColor:selectedTitleColor forState:UIControlStateSelected];
+    }
+    if (backGroundColor) {
+        [button setBackgroundColor:backGroundColor];
+    }
+    if (image) {
+        [button setImage:image forState:UIControlStateNormal];
+    }
+    if (selectedImage) {
+        [button setImage:selectedImage forState:UIControlStateSelected];
+    }
+    return button;
+}
++ (instancetype)buttonWithFrame:(CGRect)frame Title:(NSString *)title Font:(UIFont *)font TitleColor:(UIColor *)titleColor BackGroundColor:(UIColor *)backGroundColor DisableBackGroundColor:(UIColor *)disableBackGroundColor Target:(id)target Action:(SEL)action
+{
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    button.frame = frame;
+    [button setTitle:title forState:UIControlStateNormal];
+    button.titleLabel.font = font;
+    if (titleColor) {
+        [button setTitleColor:titleColor forState:UIControlStateNormal];
+    }
+    if (backGroundColor) {
+        [button setBackgroundImage:[UIImage imageWithColor:backGroundColor andSize:CGSizeMake(1, 1)] forState:UIControlStateNormal];
+    }
+    if (disableBackGroundColor) {
+        [button setBackgroundImage:[UIImage imageWithColor:disableBackGroundColor andSize:CGSizeMake(1, 1)] forState:UIControlStateDisabled];
+    }
+    if (target && action) {
+        [button addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
+    }
+    return button;
 }
 @end

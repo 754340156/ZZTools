@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 //线的默认颜色
-#define kLine_Color_Default [UIColor colorWithWhite:0.9 alpha:1.0]
+#define kLine_Color_Default [UIColor colorWithRed:238 / 255.0 green:238 / 255.0 blue:238 / 255.0 alpha:1.0]
 
 @interface UIView (Extension)
 #pragma mark - frame
@@ -18,8 +18,8 @@
 @property (nonatomic, assign) CGSize size;
 @property (nonatomic, assign) CGFloat width;
 @property (nonatomic, assign) CGFloat height;
-@property (nonatomic, assign) CGFloat x;
-@property (nonatomic, assign) CGFloat y;
+@property (nonatomic, assign) CGFloat X;
+@property (nonatomic, assign) CGFloat Y;
 @property (nonatomic, assign) CGFloat centerX;
 @property (nonatomic, assign) CGFloat centerY;
 @property (nonatomic, assign) CGFloat top;
@@ -52,6 +52,8 @@
 
 - (void)showToastMsg:(NSString *)msg;   //展示吐丝
 - (void)showToastMsg:(NSString *)msg time:(CGFloat)time;
+- (void)showToastMsg:(NSString *)msg completion:(void(^)())completion;
+- (void)showToastMsg:(NSString *)msg time:(CGFloat)time completion:(void(^)())completion;
 - (void)dismissToast;   //让吐丝消息
 
 
@@ -117,5 +119,16 @@ typedef NS_ENUM(NSInteger, LineLayoutStyle)
 - (void)setShadowWithOffset:(CGSize)size;
 
 - (void)setShadowWithColor:(UIColor *)shadowColor offset:(CGSize)size;
+/**  投影效果（京东购物车底部工具条的效果） */
+- (void)setProjection;
+#pragma mark - Corner
+- (void)setCornerWithRadius:(CGFloat)radius;
 
+- (void)setCornerWithRadius:(CGFloat)radius BorderColor:(UIColor *)borderColor BorderWidth:(CGFloat)borderWidth;
+- (void)setCornerWithRadius:(CGFloat)radius RoundingCorners:(UIRectCorner)roundingCorners;
+
+/**  高性能设置圆角 */
+- (void)setCornerViewHighPerformanceWithRadius:(CGFloat)radius;
+#pragma mark - GestureRecognizer
+- (void)addTapGestureRecognizerWithTarget:(id)target Action:(SEL)action;
 @end

@@ -26,4 +26,7 @@
 
 //尺寸适配（轻比例）（特殊情况下使用）
 #define LightAdapted(x)  floorf((x) * ((kScreenWidthRatio > 1) ? (1 + (kScreenWidthRatio - 1) / 2.0) : (1 - (1 - kScreenWidthRatio) / 2.0)))
+
+//尺寸适配 以6做基准 5s尺寸不缩小 6plus等比放大
+#define StandardSize(x) kScreenW == 320 ? x : ((x) * kScreenWidthRatio)
 #endif /* ZZLayout_h */

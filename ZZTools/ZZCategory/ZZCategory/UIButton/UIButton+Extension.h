@@ -41,5 +41,46 @@ typedef void(^ActionBlock)(void);
 @property (readonly) NSMutableDictionary *event;
 
 - (void)handleControlEvent:(UIControlEvents)controlEvent withBlock:(ActionBlock)action;
+#pragma mark - init
+/**  title font  */
++ (instancetype)zz_buttonWithFrame:(CGRect)frame Title:(NSString *)title Font:(UIFont *)font Target:(id)target Action:(SEL)action;
+/**  title font backGroundColor */
++ (instancetype)zz_buttonWithFrame:(CGRect)frame Title:(NSString *)title Font:(UIFont *)font BackGroundColor:(UIColor *)backGroundColor Target:(id)target Action:(SEL)action;
+/**  title font backGroundColor titleColor */
++ (instancetype)zz_buttonWithFrame:(CGRect)frame Title:(NSString *)title Font:(UIFont *)font BackGroundColor:(UIColor *)backGroundColor TitleColor:(UIColor *)titleColor Target:(id)target Action:(SEL)action;
+/**  title font titleColor */
++ (instancetype)zz_buttonWithFrame:(CGRect)frame Title:(NSString *)title Font:(UIFont *)font TitleColor:(UIColor *)titleColor Target:(id)target Action:(SEL)action;
+/**  title font selectedTitle */
++ (instancetype)zz_buttonWithFrame:(CGRect)frame Title:(NSString *)title Font:(UIFont *)font SelectedTitle:(NSString *)selectedTitle Target:(id)target Action:(SEL)action;
+/**  title font selectedTitle backGroundColor */
++ (instancetype)zz_buttonWithFrame:(CGRect)frame Title:(NSString *)title Font:(UIFont *)font SelectedTitle:(NSString *)selectedTitle BackGroundColor:(UIColor *)backGroundColor Target:(id)target Action:(SEL)action;
+/**  title font selectedTitle backGroundColor titleColor */
++ (instancetype)zz_buttonWithFrame:(CGRect)frame Title:(NSString *)title Font:(UIFont *)font SelectedTitle:(NSString *)selectedTitle BackGroundColor:(UIColor *)backGroundColor TitleColor:(UIColor *)titleColor SelectedTitleColor:(UIColor *)selectedTitleColor Target:(id)target Action:(SEL)action;
+/**  title font selectedTitle  titleColor selectedTitleColor */
++ (instancetype)zz_buttonWithFrame:(CGRect)frame Title:(NSString *)title Font:(UIFont *)font SelectedTitle:(NSString *)selectedTitle TitleColor:(UIColor *)titleColor SelectedTitleColor:(UIColor *)selectedTitleColor Target:(id)target Action:(SEL)action;
+/**  title font titleColor backGroundColor disableBackGroundColor */
++ (instancetype)zz_buttonWithFrame:(CGRect)frame Title:(NSString *)title Font:(UIFont *)font TitleColor:(UIColor *)titleColor BackGroundColor:(UIColor *)backGroundColor DisableBackGroundColor:(UIColor *)disableBackGroundColor Target:(id)target Action:(SEL)action;
+/**  image */
++ (instancetype)zz_buttonWithFrame:(CGRect)frame Image:(UIImage *)image Target:(id)target Action:(SEL)action;
+/**  image selectedImage */
++ (instancetype)zz_buttonWithFrame:(CGRect)frame Image:(UIImage *)image SelectedImage:(UIImage *)selectedImage Target:(id)target Action:(SEL)action;
+
+/**  title font image */
++ (instancetype)zz_buttonWithFrame:(CGRect)frame Title:(NSString *)title Font:(UIFont *)font Image:(UIImage *)image Target:(id)target Action:(SEL)action;
+/**  title font backGroundColor image */
++ (instancetype)zz_buttonWithFrame:(CGRect)frame Title:(NSString *)title Font:(UIFont *)font BackGroundColor:(UIColor *)backGroundColor Image:(UIImage *)image Target:(id)target Action:(SEL)action;
+/**  title font backGroundColor titleColor image */
++ (instancetype)zz_buttonWithFrame:(CGRect)frame Title:(NSString *)title Font:(UIFont *)font BackGroundColor:(UIColor *)backGroundColor TitleColor:(UIColor *)titleColor Image:(UIImage *)image Target:(id)target Action:(SEL)action;
+/**  title font titleColor image */
++ (instancetype)zz_buttonWithFrame:(CGRect)frame Title:(NSString *)title Font:(UIFont *)font TitleColor:(UIColor *)titleColor Image:(UIImage *)image Target:(id)target Action:(SEL)action;
+/**  title font selectedTitle image */
++ (instancetype)zz_buttonWithFrame:(CGRect)frame Title:(NSString *)title Font:(UIFont *)font SelectedTitle:(NSString *)selectedTitle Image:(UIImage *)image Target:(id)target Action:(SEL)action;
+/**  title font selectedTitle backGroundColor image */
++ (instancetype)zz_buttonWithFrame:(CGRect)frame Title:(NSString *)title Font:(UIFont *)font SelectedTitle:(NSString *)selectedTitle BackGroundColor:(UIColor *)backGroundColor Image:(UIImage *)image Target:(id)target Action:(SEL)action;
+/**  title font selectedTitle backGroundColor titleColor selectedTitleColor image */
++ (instancetype)zz_buttonWithFrame:(CGRect)frame Title:(NSString *)title Font:(UIFont *)font SelectedTitle:(NSString *)selectedTitle BackGroundColor:(UIColor *)backGroundColor TitleColor:(UIColor *)titleColor SelectedTitleColor:(UIColor *)selectedTitleColor Image:(UIImage *)image Target:(id)target Action:(SEL)action;
+/**  title font selectedTitle  titleColor selectedTitleColor image */
++ (instancetype)zz_buttonWithFrame:(CGRect)frame Title:(NSString *)title Font:(UIFont *)font SelectedTitle:(NSString *)selectedTitle TitleColor:(UIColor *)titleColor SelectedTitleColor:(UIColor *)selectedTitleColor Image:(UIImage *)image Target:(id)target Action:(SEL)action;
+
 
 @end

@@ -29,4 +29,26 @@
     return attributedStr;
 }
 
+/**  分段设置字体颜色 */
++ (NSAttributedString *)attributedStringWithString:(NSString *)string ConfigurationArray:(NSArray<NSDictionary<NSString *,UIColor *> *>*)configurationArray
+{
+    NSMutableAttributedString *hintString=[[NSMutableAttributedString alloc]initWithString:string];
+    
+    [configurationArray enumerateObjectsUsingBlock:^(NSDictionary<NSString *,UIColor *> * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        NSRange range = [[hintString string]rangeOfString:obj.allKeys[0]];
+        [hintString addAttribute:NSForegroundColorAttributeName value:obj.allValues[0] range:range];
+    }];
+    return hintString;
+}
+/**  设置字体大小 */
++ (NSAttributedString *)attributedStringWithString:(NSString *)string FontArray:(NSArray<NSDictionary<NSString *,UIFont *> *>*)fontArray
+{
+    NSMutableAttributedString *hintString=[[NSMutableAttributedString alloc]initWithString:string];
+    
+    [fontArray enumerateObjectsUsingBlock:^(NSDictionary<NSString *,UIColor *> * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        NSRange range = [[hintString string]rangeOfString:obj.allKeys[0]];
+        [hintString addAttribute:NSFontAttributeName value:obj.allValues[0] range:range];
+    }];
+    return hintString;
+}
 @end

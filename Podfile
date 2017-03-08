@@ -8,4 +8,5 @@ pod 'AFNetworking'
 pod 'FMDB'
 pod 'MJExtension'
 pod 'AliyunOSSiOS'
+pod 'Masonry'
 end

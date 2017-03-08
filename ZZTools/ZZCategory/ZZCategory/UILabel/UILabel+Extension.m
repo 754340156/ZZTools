@@ -68,6 +68,10 @@
     CGRect rect = [text boundingRectWithSize:CGSizeMake(width, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:font} context:nil];
     return ceilf(rect.size.height);
 }
++ (CGSize)getSizeFont:(UIFont *)font text:(NSString *)text
+{
+    return [text sizeWithAttributes:@{NSFontAttributeName:font}];
+}
 + (instancetype)label
 {
     UILabel *label = [[UILabel alloc] init];
@@ -124,6 +128,22 @@
 //    self.frame = rect;
 //}
 //
+/**  设置中划线 */
+- (void)setMidStrikethrough
+{
+    //中划线
+    NSDictionary *attribtDic = @{NSStrikethroughStyleAttributeName: [NSNumber numberWithInteger:NSUnderlineStyleSingle]};
+    NSMutableAttributedString *attribtStr = [[NSMutableAttributedString alloc]initWithString:self.text attributes:attribtDic];
+    self.attributedText = attribtStr;
+}
+/**  设置下划线 */
+- (void)setUnderlineWithRange:(NSRange)range
+{
+    NSDictionary *attribtDic = @{NSUnderlineStyleAttributeName: [NSNumber numberWithInteger:NSUnderlineStyleSingle]};
+    NSMutableAttributedString *attribtStr = [[NSMutableAttributedString alloc] initWithString:self.text];
+    [attribtStr addAttributes:attribtDic range:range];
+    self.attributedText = attribtStr;
+}
 @end
 @implementation InsetLabel
 

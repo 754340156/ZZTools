@@ -10,5 +10,6 @@
 
 @interface UINavigationController (Extension)
 - (void)pushVC:(UIViewController *)vc withBackTitle:(NSString *)backTitle animated:(BOOL)animated;
+- (void)pushVC:(UIViewController *)vc WithTitle:(NSString *)title animated:(BOOL)animated;
 - (UIViewController *)popVCAnimated:(BOOL)animated;
 @end

@@ -432,7 +432,7 @@
         if (self.isFullWidth)
         {
             CGRect frame = _bottomLineView.frame;
-            frame.origin.x = sender.x;
+            frame.origin.x = sender.X;
             _bottomLineView.frame = frame;
         }
         else
@@ -450,7 +450,7 @@
     CGFloat titleWidth = [btn.titleLabel getWidth];
     BOOL addWidth = btn.width * 3 / 4.0 > titleWidth;
     frame.size.width = titleWidth + (addWidth ? 16 : 0);
-    frame.origin.x = btn.x + (btn.width - frame.size.width) / 2.0;
+    frame.origin.x = btn.X + (btn.width - frame.size.width) / 2.0;
     return frame;
 }
 

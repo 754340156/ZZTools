@@ -33,6 +33,8 @@
 //根据字体,宽度绘制所需高度
 + (CGFloat)getHeightWithFont:(UIFont *)font Width:(CGFloat)width text:(NSString *)text;
 
++ (CGSize)getSizeFont:(UIFont *)font text:(NSString *)text;
+
 + (instancetype)label;
 
 + (instancetype)labelWithTitle:(NSString *)title;
@@ -44,7 +46,10 @@
 - (CGSize)textSizeIn:(CGSize)size;
 
 //- (void)layoutInContent;
-
+/**  设置中划线 */
+- (void)setMidStrikethrough;
+/**  设置下划线 */
+- (void)setUnderlineWithRange:(NSRange)range;
 @end
 @interface InsetLabel : UILabel
 

@@ -11,13 +11,13 @@
 #import <AVFoundation/AVFoundation.h>
 #import "lame.h"
 //明文
-static NSString *const AccessKey = @"your-key";
+static NSString *const AccessKey = @"LTAIk0rAC99YedWr";
 //密文
-static NSString *const SecretKey = @"your-secret";
+static NSString *const SecretKey = @"7j7sOCBMJ9TilCK9COksuTIzhbZW1t";
 //bucket
-static NSString *const BucketName = @"your-bucket";
+static NSString *const BucketName = @"didimei-oss";
 //服务器
-static NSString *const AliYunHost = @"http://oss-cn-shenzhen.aliyuncs.com/";
+static NSString *const AliYunHost = @"http://oss-cn-shanghai.aliyuncs.com/";
 //
 static NSString *kTempFolder = @"temp";
 @implementation ZZAliyunTools
@@ -104,12 +104,12 @@ static NSString *kTempFolder = @"temp";
                 //任务执行
                 OSSPutObjectRequest * put = [OSSPutObjectRequest new];
                 put.bucketName = BucketName;
-                NSString *imageName = [kTempFolder stringByAppendingPathComponent:[[NSUUID UUID].UUIDString stringByAppendingString:@".jpg"]];
+               NSString * imageName =  [NSString stringWithFormat:@"img/%@/%@_img_%d.png",[NSDate currentTimeWithDay],[NSDate currentTime],((arc4random()% 100000000) + 10000)];
                 put.objectKey = imageName;
                 [callBackNames addObject:imageName];
-                NSData *data = UIImageJPEGRepresentation(image, 0.3);
+                //压缩图片
+                NSData *data = [UIImage imageCompressForSize:image targetPx:1280];
                 put.uploadingData = data;
-                
                 OSSTask * putTask = [client putObject:put];
                 [putTask waitUntilFinished]; // 阻塞直到上传完成
                 if (isAsync && image == images.lastObject) {
@@ -143,8 +143,14 @@ static NSString *kTempFolder = @"temp";
 {
     if (!voicePath && voicePath.length <= 0) return;
     //转码
-    NSString *path = [self audioPCMtoMP3:voicePath DateString:[NSDate currentTime]];
-    NSData *data = [[NSData alloc] initWithContentsOfFile:path];
+    NSData *data ;
+    if (compressConfiguration) {
+        data = compressConfiguration();
+    }else
+    {
+        NSString *path = [self audioPCMtoMP3:voicePath DateString:[NSDate currentTime]];
+        data = [[NSData alloc] initWithContentsOfFile:path];
+    }
     OSSPutObjectRequest * request = [OSSPutObjectRequest new];
     request.bucketName = BucketName;
     request.uploadingData = data;
@@ -181,8 +187,14 @@ static NSString *kTempFolder = @"temp";
 {
     if (!videoPath && videoPath.length <= 0) return;
     //转码
-    NSURL *url = [self convert2Mp4:[NSURL URLWithString:videoPath]];
-    NSData *data = [[NSData alloc] initWithContentsOfURL:url];
+    NSData *data ;
+    if (compressConfiguration) {
+        data = compressConfiguration();
+    }else
+    {
+        NSURL *url = [self convert2Mp4:[NSURL URLWithString:videoPath]];
+        data = [[NSData alloc] initWithContentsOfURL:url];
+    }
     OSSPutObjectRequest * request = [OSSPutObjectRequest new];
     request.bucketName = BucketName;
     request.uploadingData = data;

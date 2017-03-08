@@ -110,7 +110,7 @@ static const CGFloat kCellHeight = 40;
                 UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
                 
                 button.titleLabel.font = [UIFont systemFontOfSize:16.0];
-                button.frame = CGRectMake(i * (_topView.bounds.size.width - 50), 0, 50, kTopViewHeight);
+                button.frame = CGRectMake(i * (_topView.bounds.size.width - 50), 0, 50, kTopViewHeight - 1.0f);
                 [button setTitle:buttonTitleArray[i] forState:UIControlStateNormal];
                 [button setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
                 [_topView addSubview:button];

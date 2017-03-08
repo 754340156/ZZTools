@@ -80,6 +80,8 @@ typedef enum {
  */
 + (UIImage *)blurImage:(UIImage *)image blur:(CGFloat)blur;
 #pragma mark - 圆形裁剪
+/**  可以设置圆角的大小 */
+- (UIImage *)roundedCornerImage:(NSInteger)cornerSize borderSize:(NSInteger)borderSize;
 /**
  *  生成圆角的图片
  *
@@ -145,4 +147,16 @@ typedef enum {
 - (UIImage *)imageWithAlpha:(CGFloat)alpha;
 - (UIImage *)imageWithTintColor:(UIColor *)tintColor blendMode:(CGBlendMode)blendMode;
 - (UIImage *)imageWithGradientTintColor:(UIColor *)tintColor;
+#pragma mark - 图片压缩
+/**
+ 图片压缩的逻辑:
+ 一:图片尺寸压缩 主要分为以下几种情况 一般参照像素为1280
+ a.图片宽高均≤1280px时，图片尺寸保持不变;
+ b.宽或高均＞1280px时 ——图片宽高比≤2，则将图片宽或者高取大的等比压缩至1280px; ——但是图片宽高比＞2时，则宽或者高取小的等比压缩至1280px;
+ c.宽高一个＞1280px，另一个＜1280px，--图片宽高比＞2时，则宽高尺寸不变;--但是图片宽高比≤2时,则将图片宽或者高取大的等比压缩至1280px.
+ 
+ 二:图片质量压缩
+ 一般图片质量都压缩在90%就可以了
+ */
++ (NSData *)imageCompressForSize:(UIImage *)sourceImage targetPx:(NSInteger)targetPx;
 @end

@@ -35,7 +35,7 @@ static const char *phTextView = "placeHolderTextView";
         textView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
         textView.font = self.font;
         textView.backgroundColor = [UIColor clearColor];
-        textView.textColor = [UIColor grayColor];
+        textView.textColor = [UIColor colorWithRed:192 / 255.0 green:192 / 255.0 blue:196 / 255.0 alpha:1.0];
         textView.userInteractionEnabled = NO;
         textView.text = placeHolder;
         [self addSubview:textView];

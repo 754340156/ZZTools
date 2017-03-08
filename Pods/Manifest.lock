@@ -18,6 +18,7 @@ PODS:
   - FMDB (2.6.2):
     - FMDB/standard (= 2.6.2)
   - FMDB/standard (2.6.2)
+  - Masonry (1.0.2)
   - MBProgressHUD (0.9.2)
   - MJExtension (3.0.13)
   - SDWebImage (3.8.1):
@@ -28,6 +29,7 @@ DEPENDENCIES:
   - AFNetworking
   - AliyunOSSiOS
   - FMDB
+  - Masonry
   - MBProgressHUD
   - MJExtension
   - SDWebImage
@@ -36,10 +38,11 @@ SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
   AliyunOSSiOS: 058b038cc82000dadb8f8e3893a97243124f2898
   FMDB: 854a0341b4726e53276f2a8996f06f1b80f9259a
+  Masonry: 7c429b56da9d4ee0bbb3ed77a5ea710d6a5df39e
   MBProgressHUD: 1569cf7ace17a8bac47aabfbb8580a49690386d1
   MJExtension: 5932755f451458eefa24239358817f8d291240c7
   SDWebImage: 35f9627a3e44b4f292a8a8ce6a531fa488239b91
 
-PODFILE CHECKSUM: 1107f795845ecbeb1f8d195c5274eecfd239134c
+PODFILE CHECKSUM: ce5e8c1430fb5390641fd6ff53206573fe9d275a
 
 COCOAPODS: 1.1.1

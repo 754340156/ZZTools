@@ -9,13 +9,14 @@
 #import "PhotosCollectionView.h"
 #import "PhotosCollectionViewCell.h"
 #import "TZImagePickerController.h"
-
+#import <Masonry/Masonry.h>
 static NSString * itemImageStr = @"";
 
 static CGFloat itemH = 0;
 static CGFloat itemW = 0;
 static CGFloat PCVmargin = 0;
-
+static CGFloat insetTop = 0;
+static CGFloat insetBottom = 0;
 @interface PhotosCollectionView ()<UICollectionViewDelegate,UICollectionViewDataSource,TZImagePickerControllerDelegate>
 /**  添加照片 */
 @property(nonatomic,strong) UICollectionView * collectionView;
@@ -30,37 +31,58 @@ static CGFloat PCVmargin = 0;
 @implementation PhotosCollectionView
 
 /** 初始化方法 */
-- (instancetype)initWithFrame:(CGRect)frame withItemWidth:(CGFloat)itemWidth ItemHeight:(CGFloat)itemHeight Margin:(CGFloat)Margin ViewController:(UIViewController *)viewController ItemImage:(NSString *)itemImage
+- (instancetype)initWithFrame:(CGRect)frame Insets:(UIEdgeInsets)insets MinimumLineSpacing:(CGFloat)minimumLineSpacing MinimumInteritemSpacing:(CGFloat)minimumInteritemSpacing ViewController:(UIViewController *)viewController ItemImage:(NSString *)itemImage
 {
     self = [super initWithFrame:frame];
     if (self) {
-        [self setupWithItemWidth:itemWidth ItemHeight:itemHeight Margin:Margin];
+        
+        CGFloat itemHeight = ([UIScreen mainScreen].bounds.size.width - insets.left - insets.right - (singleLineCount - 1) * minimumInteritemSpacing) / singleLineCount;
         self.viewController = viewController;
         itemImageStr = itemImage;
         itemH = itemHeight;
-        itemW = itemWidth;
-        PCVmargin = Margin;
+        itemW = itemHeight;
+        PCVmargin = minimumLineSpacing;
+        insetTop = insets.top;
+        insetBottom = insets.bottom;
+        [self setupWithInsets:insets MinimumLineSpacing:minimumLineSpacing MinimumInteritemSpacing:minimumInteritemSpacing];
+        
     }
     return self;
 }
 #pragma mark - setup
-- (void)setupWithItemWidth:(CGFloat)itemWidth ItemHeight:(CGFloat)itemHeight Margin:(CGFloat)Margin
+- (void)setupWithInsets:(UIEdgeInsets)insets MinimumLineSpacing:(CGFloat)minimumLineSpacing MinimumInteritemSpacing:(CGFloat)minimumInteritemSpacing
 {
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
-    flowLayout.minimumLineSpacing = Margin;
-    flowLayout.minimumInteritemSpacing = Margin;
-    flowLayout.itemSize = CGSizeMake(itemWidth,itemWidth);
+    flowLayout.sectionInset = insets;
+    flowLayout.minimumLineSpacing = minimumLineSpacing;
+    flowLayout.minimumInteritemSpacing = minimumInteritemSpacing;
+    flowLayout.itemSize = CGSizeMake(itemW,itemH);
     self.collectionView = [[UICollectionView alloc] initWithFrame:self.bounds collectionViewLayout:flowLayout];
     self.collectionView.backgroundColor = kWhiteColor;
+    self.collectionView.scrollEnabled = NO;
+    self.collectionView.delegate = self;
+    self.collectionView.dataSource = self;
     self.collectionView.bounces = NO;
+    [self.collectionView registerClass:[PhotosCollectionViewCell class] forCellWithReuseIdentifier:[PhotosCollectionViewCell className]];
     [self addSubview:self.collectionView];
+    [self.collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.bottom.right.left.offset(0);
+    }];
 }
 #pragma mark - custom method
 //预览图片
 - (void)previewPhotosWithIndex:(NSInteger)index
 {
-    WS(weakSelf);
-    SS(strongSelf)
+    if (self.delegate && [self.delegate respondsToSelector:@selector(PhotosCollectionViewDeletePhotoWithComplain:)]) {
+       [self.delegate PhotosCollectionViewDeletePhotoWithComplain:^(BOOL isDelete) {
+           if (isDelete) {
+               [self deletePhotoWithIndex:index];
+           }
+           return;
+       }];
+    }
+    __weak __typeof(self)weakSelf = self;
+    __strong typeof(weakSelf) strongSelf = weakSelf;
     //预览
     TZImagePickerController *imagePickerVC = [[TZImagePickerController alloc] initWithSelectedAssets:self.selectedAssets selectedPhotos:self.selectedPhotos index:index];
     imagePickerVC.maxImagesCount = maxCount;
@@ -70,8 +92,8 @@ static CGFloat PCVmargin = 0;
             weakSelf.selectedPhotos = [NSMutableArray arrayWithArray:photos];
             weakSelf.selectedAssets = [NSMutableArray arrayWithArray:assets];
             [weakSelf.collectionView reloadData];
-            if (weakSelf.refreshEndBlock) {
-                weakSelf.refreshEndBlock(weakSelf.height);
+            if (weakSelf.delegate && [weakSelf.delegate respondsToSelector:@selector(PhotosCollectionViewRefreshEndOfPhotoArray:height:)]) {
+                [weakSelf.delegate PhotosCollectionViewRefreshEndOfPhotoArray:weakSelf.selectedPhotos height:weakSelf.collectionView.height];
             }
         }
     }];
@@ -85,6 +107,34 @@ static CGFloat PCVmargin = 0;
     imagePickerVC.allowPickingVideo = NO;
     imagePickerVC.allowPickingOriginalPhoto = NO;
     [self.viewController presentViewController:imagePickerVC animated:YES completion:nil];
+}
+//删除
+- (void)deletePhotoWithIndex:(NSInteger )index
+{
+    if (self.selectedPhotos.count == maxCount) {
+        [self.selectedPhotos removeObjectAtIndex:index];
+        [self.selectedAssets removeObjectAtIndex:index];
+        [self.collectionView reloadData];
+        [self updateHeight];
+    }else
+    {
+        [self.selectedPhotos removeObjectAtIndex:index];
+        [self.selectedAssets removeObjectAtIndex:index];
+        [self.collectionView deleteItemsAtIndexPaths:@[[NSIndexPath indexPathForRow:index inSection:0]]];
+        [self updateHeight];
+    }
+}
+- (void)updateHeight
+{
+    NSInteger count = self.selectedPhotos.count / singleLineCount;
+    //判断修改高度
+    CGFloat height = (count + 1) * itemH + count * PCVmargin + insetTop + insetBottom ;
+    [self.collectionView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.height.offset(height);
+    }];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(PhotosCollectionViewRefreshEndOfPhotoArray:height:)]) {
+        [self.delegate PhotosCollectionViewRefreshEndOfPhotoArray:self.selectedPhotos height:height];
+    }
 }
 #pragma mark - UICollectionViewDelegate
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
@@ -134,14 +184,9 @@ static CGFloat PCVmargin = 0;
 {
     self.selectedPhotos = [NSMutableArray arrayWithArray:photos];
     self.selectedAssets = [NSMutableArray arrayWithArray:assets];
-    NSInteger count = self.selectedPhotos.count / singleLineCount;
-    //判断修改高度
-    self.collectionView.height = (count + 1) * itemH + count * PCVmargin;
-    self.height = self.collectionView.height;
-    [self layoutIfNeeded];
-    if (self.refreshEndBlock) {
-        self.refreshEndBlock(self.height);
-    }
+    [self.collectionView reloadData];
+    //更新高度
+    [self updateHeight];
 }
 #pragma mark - lazy
 - (NSMutableArray *)selectedPhotos

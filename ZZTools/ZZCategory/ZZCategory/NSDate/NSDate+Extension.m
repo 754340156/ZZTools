@@ -755,4 +755,18 @@
     [dateFormatter setDateFormat:@"YYYY_MM_dd_hh:mm:ss"];
     return  [dateFormatter stringFromDate:currentDate];
 }
++ (NSString *)currentTimeWithDay
+{
+    NSDate *currentDate = [NSDate date];//获取当前时间，日期
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"YYYY_MM_dd"];
+    return  [dateFormatter stringFromDate:currentDate];
+}
+/**  计算倒计时，给出结束时时间 */
++ (NSTimeInterval)countDownWithEndTime:(NSTimeInterval)endTime
+{
+    NSDate *currentDate = [NSDate date];//获取当前时间，日期
+    NSTimeInterval time= [[NSDate dateWithTimeIntervalSince1970:endTime] timeIntervalSinceDate:currentDate];
+    return time;
+}
 @end

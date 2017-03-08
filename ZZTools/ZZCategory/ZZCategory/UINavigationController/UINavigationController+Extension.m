@@ -21,7 +21,14 @@
     }
     [self pushViewController:vc animated:animated];
 }
-
+- (void)pushVC:(UIViewController *)vc WithTitle:(NSString *)title animated:(BOOL)animated
+{
+    vc.hidesBottomBarWhenPushed = YES;
+    if (title && title.length > 0) {
+        vc.navigationItem.title = title;
+    }
+    [self pushViewController:vc animated:animated];
+}
 - (UIViewController *)popVCAnimated:(BOOL)animated
 {
     return [self popViewControllerAnimated:animated];

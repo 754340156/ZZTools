@@ -225,4 +225,7 @@
  * 获取当前日期 yyyy-MM-dd HH:mm:ss
  */
 + (NSString *)currentTime;
++ (NSString *)currentTimeWithDay;
+/**  计算倒计时，给出结束时时间 */
++ (NSTimeInterval)countDownWithEndTime:(NSTimeInterval)endTime;
 @end

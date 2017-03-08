@@ -24,6 +24,7 @@
 - (void)createViews
 {
     self.imageView = [[UIImageView alloc] initWithFrame:self.bounds];
+    [self.imageView setCornerWithRadius:5];
     [self.contentView addSubview:self.imageView];
 }
 

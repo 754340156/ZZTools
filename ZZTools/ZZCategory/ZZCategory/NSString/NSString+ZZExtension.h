@@ -74,4 +74,8 @@
 //将一个字符串在固定的N个位置插入某个字符
 - (NSString *)insetedSubString:(NSString *)subString
                   atIndexArray:(NSArray *)indexArray;
+#pragma mark - search 
+//获取汉字转成拼音字符串
++ (NSString *)transformToPinyin:(NSString *)aString;
+
 @end

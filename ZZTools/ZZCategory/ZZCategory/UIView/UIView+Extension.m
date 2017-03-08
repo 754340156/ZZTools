@@ -34,7 +34,7 @@
 
 
 //线的默认高度
-#define kLine_W_H_Default 0.7
+#define kLine_W_H_Default 1.0
 
 //tag
 #define kEffectView_Tag 5001    //毛玻璃tag
@@ -67,7 +67,7 @@ static void *toastViewKey   = &toastViewKey;
 {
     return self.center.x;
 }
-- (void)setcenterX:(CGFloat)centerX
+- (void)setCenterX:(CGFloat)centerX
 {
     CGPoint center = self.center;
     center.x = centerX;
@@ -77,7 +77,7 @@ static void *toastViewKey   = &toastViewKey;
 {
     return self.center.y;
 }
-- (void)setcenterY:(CGFloat)centerY
+- (void)setCenterY:(CGFloat)centerY
 {
     CGPoint center = self.center;
     center.y = centerY;
@@ -88,7 +88,7 @@ static void *toastViewKey   = &toastViewKey;
     return self.frame.size;
 }
 
-- (void)setsize:(CGSize)size
+- (void)setSize:(CGSize)size
 {
     CGRect frame = self.frame;
     frame.size = size;
@@ -105,40 +105,40 @@ static void *toastViewKey   = &toastViewKey;
     return self.frame.size.height;
 }
 
-- (void)setwidth:(CGFloat)width
+- (void)setWidth:(CGFloat)width
 {
     CGRect frame = self.frame;
     frame.size.width = width;
     self.frame = frame;
 }
-- (void)setheight:(CGFloat)height
+- (void)setHeight:(CGFloat)height
 {
     CGRect frame = self.frame;
     frame.size.height = height;
     self.frame = frame;
 }
 
-- (CGFloat)x
+- (CGFloat)X
 {
     return self.frame.origin.x;
 }
 
-- (void)setx:(CGFloat)x
+- (void)setX:(CGFloat)X
 {
     CGRect frame = self.frame;
-    frame.origin.x = x;
+    frame.origin.x = X;
     self.frame = frame;
 }
 
-- (CGFloat)y
+- (CGFloat)Y
 {
     return self.frame.origin.y;
 }
 
-- (void)sety:(CGFloat)y
+- (void)setY:(CGFloat)Y
 {
     CGRect frame = self.frame;
-    frame.origin.y = y;
+    frame.origin.y = Y;
     self.frame = frame;
 }
 - (CGFloat)top {
@@ -287,8 +287,8 @@ static void *toastViewKey   = &toastViewKey;
     self.errorView = nil;
 }
 
-//展示吐丝
-- (void)showToastMsg:(NSString *)msg time:(CGFloat)time;
+#pragma mark - 吐丝视图
+- (void)showToastMsg:(NSString *)msg time:(CGFloat)time completion:(void(^)())completion
 {
     [self dismissToast];
     
@@ -334,13 +334,9 @@ static void *toastViewKey   = &toastViewKey;
     //计算文字的宽度
     CGFloat width = [toastLabel getWidth] + 2 * kToastLabelInset;
     CGFloat maxWidth = self.bounds.size.width - 2 * kToastMaxMargin;
-    
     BOOL isSingleLine = (width <= maxWidth);
-    
     CGFloat labelWidth = isSingleLine ? width : maxWidth;
-    
     CGRect tempFrame = toastLabel.frame;
-    
     CGSize textSize = [toastLabel getSizeWithWidth:labelWidth - 2 * kToastLabelInset];
     tempFrame.size = CGSizeMake(labelWidth, textSize.height + 2 * kToastVertMargin);
     
@@ -358,12 +354,15 @@ static void *toastViewKey   = &toastViewKey;
     //    toastLabel.text = msg;
     //
     __weak __typeof(self)weakSelf = self;
-    effectView.alpha = 0;
+    effectView.alpha = 0.99;
     effectView.backgroundColor = [UIColor colorWithWhite:0.0 alpha:kBackgroudAlpha_toastLabel];
+    CGAffineTransform effectTransform = effectView.transform;
+    effectView.transform = CGAffineTransformScale(effectTransform, 0.3, 0.3);
     
-    [UIView animateWithDuration:0.3 delay:0.0 usingSpringWithDamping:0.7 initialSpringVelocity:6.0 options:0 animations:^{
+    [UIView animateWithDuration:0.5 delay:0.0 usingSpringWithDamping:0.7 initialSpringVelocity:16.0 options:0 animations:^{
         
         effectView.alpha = 0.99;
+        effectView.transform = effectTransform;
         self.toastView.backgroundColor = [UIColor colorWithWhite:0.0 alpha:kBackgroudAlpha_dismiss_toastView];
         
     } completion:^(BOOL finished) {
@@ -374,13 +373,16 @@ static void *toastViewKey   = &toastViewKey;
         } completion:^(BOOL finished) {
             [UIView animateWithDuration:0.3 animations:^{
                 
-                effectView.transform = CGAffineTransformScale(effectView.transform, 0.7, 0.7);
+                effectView.transform = CGAffineTransformScale(effectTransform, 0.7, 0.7);
                 effectView.alpha = 0.8;
                 self.toastView.backgroundColor = [UIColor colorWithWhite:0.0 alpha:kBackgroudAlpha_dismiss_toastView];
                 
             } completion:^(BOOL finished) {
                 
                 [weakSelf dismissToast];
+                if (completion) {
+                    completion();
+                }
             }];
         }];
     }];
@@ -388,11 +390,21 @@ static void *toastViewKey   = &toastViewKey;
     [self bringSubviewToFront:self.toastView];
 }
 
+- (void)showToastMsg:(NSString *)msg completion:(void(^)())completion
+{
+    [self showToastMsg:msg time:kTime completion:completion];
+}
+
+//展示吐丝
+- (void)showToastMsg:(NSString *)msg time:(CGFloat)time;
+{
+    [self showToastMsg:msg time:time completion:nil];
+}
+
 - (void)showToastMsg:(NSString *)msg
 {
     [self showToastMsg:msg time:kTime];
 }
-
 //让吐丝消息
 - (void)dismissToast
 {
@@ -868,5 +880,68 @@ static void *toastViewKey   = &toastViewKey;
     self.layer.shadowRadius = 2.f;
     self.layer.shadowOffset = size;
 }
+/**  投影效果（京东购物车底部工具条的效果） */
+- (void)setProjection
+{
+    self.layer.shadowColor = [UIColor blackColor].CGColor;
+    self.layer.shadowOpacity = 0.4f;
+    self.layer.shadowRadius = 4.0f;
+    self.layer.shadowOffset = CGSizeMake(0, 0);
+}
+#pragma mark - Corner
+- (void)setCornerWithRadius:(CGFloat)radius
+{
+    [self setCornerWithRadius:radius BorderColor:nil BorderWidth:0];
+}
 
+- (void)setCornerWithRadius:(CGFloat)radius BorderColor:(UIColor *)borderColor BorderWidth:(CGFloat)borderWidth
+{
+    self.layer.cornerRadius = radius;
+    self.layer.masksToBounds = YES;
+    if (borderColor) {
+        self.layer.borderColor = borderColor.CGColor;
+    }
+    if (borderWidth) {
+        self.layer.borderWidth = borderWidth;
+    }
+}
+- (void)setCornerWithRadius:(CGFloat)radius RoundingCorners:(UIRectCorner)roundingCorners
+{
+    UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:self.bounds byRoundingCorners:roundingCorners cornerRadii:CGSizeMake(10,10)];
+    
+    CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
+    maskLayer.frame = self.bounds;
+    maskLayer.path = maskPath.CGPath;
+    self.layer.mask = maskLayer;
+}
+/**  高性能设置圆角 */
+- (void)setCornerViewHighPerformanceWithRadius:(CGFloat)radius
+{
+    CGSize size = self.frame.size;
+    CGRect rect = CGRectMake(0, 0, size.width, size.height);
+    UIColor *bkColor = self.backgroundColor;
+    
+    UIImage *image = [[UIImage alloc] init];
+    UIGraphicsBeginImageContextWithOptions(size, NO, UIScreen.mainScreen.scale);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextSetFillColorWithColor(context, bkColor.CGColor);
+    CGContextAddPath(context,
+                     [UIBezierPath bezierPathWithRoundedRect:rect cornerRadius:radius].CGPath);
+    CGContextDrawPath(context, kCGPathFill);
+    [image drawInRect:rect];
+    UIImage *output = UIGraphicsGetImageFromCurrentImageContext();
+    
+    UIGraphicsEndImageContext();
+    
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:rect];
+    imageView.image = output;
+    [self insertSubview:imageView atIndex:0];
+    self.backgroundColor = [UIColor clearColor];
+}
+#pragma mark - GestureRecognizer
+- (void)addTapGestureRecognizerWithTarget:(id)target Action:(SEL)action
+{
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:target action:action];
+    [self addGestureRecognizer:tap];
+}
 @end
